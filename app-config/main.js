@@ -1,12 +1,12 @@
 A.app({
   appName: "WeHaveIssues",
-  appIcon: "issue",
+  appIcon: "bug",
   onlyAuthenticated: true,
   allowSignUp: true,
   menuItems: [
     {
       name: "Issues",
-      icon: "issue",
+      icon: "bug",
       entityTypeId: "Issue",
     }
   ],
@@ -15,7 +15,7 @@ A.app({
       Issue: {
         title: 'Issues',
         fields: {
-          id: Fields.integer("Issue Id").required(),
+          issue_id: Fields.integer("Issue Id").required(),
           assigned_to: Fields.text("Assigned to"),
         }
       }
