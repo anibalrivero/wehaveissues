@@ -1,21 +1,21 @@
 A.app({
   appName: "WeHaveIssues",
-  appIcon: "bug",
+  appIcon: "issue",
   onlyAuthenticated: true,
   allowSignUp: true,
   menuItems: [
     {
-      name: "Bugs",
-      icon: "bug",
-      entityTypeId: "Bug",
+      name: "Issues",
+      icon: "issue",
+      entityTypeId: "Issue",
     }
   ],
   entities: function(Fields) {
     return {
-      Bug: {
-        title: 'Bugs',
+      Issue: {
+        title: 'Issues',
         fields: {
-          id: Fields.integer("Bug Id").required(),
+          id: Fields.integer("Issue Id").required(),
           assigned_to: Fields.text("Assigned to"),
         }
       }
