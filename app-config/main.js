@@ -1,20 +1,22 @@
 A.app({
-  appName: "Hello World",
-  appIcon: "heart",
+  appName: "WeHaveIssues",
+  appIcon: "bug",
+  onlyAuthenticated: true,
+  allowSignUp: true,
   menuItems: [
     {
-      name: "Gifts",
-      icon: "gift",
-      entityTypeId: "Gift",
+      name: "Bugs",
+      icon: "bug",
+      entityTypeId: "Bug",
     }
   ],
   entities: function(Fields) {
     return {
-      Gift: {
-        title: 'Gifts',
+      Bug: {
+        title: 'Bugs',
         fields: {
-          item: Fields.text("Item").required(),
-          date: Fields.date("Giving Date").required()
+          id: Fields.integer("Bug Id").required(),
+          assigned_to: Fields.text("Assigned to"),
         }
       }
     }
