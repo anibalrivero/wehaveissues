@@ -15,8 +15,11 @@ A.app({
       Issue: {
         title: 'Issues',
         fields: {
-          issue_id: Fields.integer("Issue Id").required(),
+          issue_id: Fields.integer("Issue Id").readOnly(),
           assigned_to: Fields.text("Assigned to"),
+        },
+        beforeCreate: function(Entity){
+          Entity.issue_id = Math.floor(Math.random() * (10 - 1 + 1) + 1);
         }
       }
     }
