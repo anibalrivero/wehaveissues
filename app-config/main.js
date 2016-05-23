@@ -8,7 +8,12 @@ A.app({
       name: "Issues",
       icon: "bug",
       entityTypeId: "Issue",
-    }
+    },
+    {
+      name: "Products",
+      icon: "th",
+      entityTypeId: "Product",
+    },
   ],
   entities: function(Fields) {
     return {
@@ -19,7 +24,7 @@ A.app({
           creation_ts: Fields.datetime("Creation timestamp").readOnly(),
           short_desc: Fields.text("Short description"),
           delta_ts: Fields.datetime("Modification timestamp").readOnly(),
-          product: Fields.text("Product"),
+          product: Fields.fixedReference("Product","Product"),
           component: Fields.text("Component"),
           version: Fields.text("Version"),
           rep_platform: Fields.text("Affected platform"),
@@ -41,6 +46,19 @@ A.app({
             }
           })
         },
+      },
+      Product:{
+        fields:{
+          name: Fields.text("Name"),
+        },
+        referenceName: "name",
+      },
+      Component:{
+        fields:{
+          name: Fields.text("Name"),
+          product: Fields.fixedReference("Product","Product")
+        },
+        referenceName: "name",
       },
       IssueCounter: {
         fields: {
