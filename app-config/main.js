@@ -9,11 +9,13 @@ A.app({
       icon: "bug",
       entityTypeId: "Issue",
     },
+    /*
     {
-      name: "Products",
+      name: "Projects",
       icon: "th",
-      entityTypeId: "Product",
+      entityTypeId: "Project",
     },
+    */
   ],
   entities: function(Fields) {
     return {
