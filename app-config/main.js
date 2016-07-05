@@ -22,19 +22,17 @@ A.app({
         fields: {
           issue_id: Fields.integer("Issue Id").readOnly(),
           creation_ts: Fields.datetime("Creation timestamp").readOnly(),
-          short_desc: Fields.text("Short description"),
+          summary: Fields.text("Summary"),
+          description: Fields.textarea("Description"),
           delta_ts: Fields.datetime("Modification timestamp").readOnly(),
-          product: Fields.fixedReference("Product","Product"),
-          component: Fields.text("Component"),
-          version: Fields.text("Version"),
-          rep_platform: Fields.text("Affected platform"),
-          op_sys: Fields.text("Affected OS"),
-          issue_status: Fields.text("Issue status"),
-          assigned_to: Fields.fixedReference("Assigned to", "User"),
+          project: Fields.text("Project"),
+          creator: Fields.fixedReference("Created by", "User").readOnly(),
           creation_date: Fields.date("Date").readOnly(),
+          comments: Fields.relation("Comments", "Comment", "issue")
         },
-        beforeSave: function (Entity, Dates, Crud) {
+        beforeSave: function (Entity, Dates, Crud, User) {
           if (!Entity.creation_date) {
+            Entity.creator = User
             Entity.creation_date = Dates.nowDate();
             Entity.creation_ts = new Date();
           }
@@ -47,18 +45,21 @@ A.app({
           })
         },
       },
-      Product:{
+      Comment:{
+        title: 'Comments',
         fields:{
-          name: Fields.text("Name"),
+          issue: Fields.fixedReference("Issue", "Issue").readOnly(),
+          creation_ts: Fields.date("Created on").readOnly(),
+          creator: Fields.fixedReference("Created by", "User").readOnly(),
+          text: Fields.textarea("Text"),
         },
-        referenceName: "name",
-      },
-      Component:{
-        fields:{
-          name: Fields.text("Name"),
-          product: Fields.fixedReference("Product","Product")
-        },
-        referenceName: "name",
+        beforeSave: function (Entity, Dates, Crud, User) {
+          if (!Entity.creation_date) {
+            Entity.creator = User
+            Entity.creation_date = Dates.nowDate();
+            Entity.creation_ts = new Date();
+          }
+        }
       },
       IssueCounter: {
         fields: {
