@@ -9,25 +9,33 @@ A.app({
       icon: "bug",
       entityTypeId: "Issue",
     },
-    /*
     {
       name: "Projects",
       icon: "th",
       entityTypeId: "Project",
     },
-    */
   ],
   entities: function(Fields) {
     return {
+      Project:{
+        title: 'Projects',
+        referenceName: "name",
+        fields: {
+          name: Fields.text("Name").required(),
+          description: Fields.textarea("Description"),
+
+        }
+      },
       Issue: {
         title: 'Issues',
+        referenceName: "summary",
         fields: {
+          project: Fields.fixedReference("Project", "Project"),
           issue_id: Fields.integer("Issue Id").readOnly(),
           creation_ts: Fields.datetime("Creation timestamp").readOnly(),
           summary: Fields.text("Summary"),
           description: Fields.textarea("Description"),
           delta_ts: Fields.datetime("Modification timestamp").readOnly(),
-          project: Fields.text("Project"),
           creator: Fields.fixedReference("Created by", "User").readOnly(),
           creation_date: Fields.date("Date").readOnly(),
           comments: Fields.relation("Comments", "Comment", "issue")
